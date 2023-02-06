@@ -1,6 +1,7 @@
 import csv
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
+from flask_cors import CORS
 
 def read_csv(filename, limit, offset):
     with open(filename) as file:
@@ -14,6 +15,7 @@ def read_csv(filename, limit, offset):
         return l
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"*": {"origins": "*"}})
 api = Api(app)
 parser = reqparse.RequestParser()
 parser.add_argument('limit', type=int, location='args', default=0)
